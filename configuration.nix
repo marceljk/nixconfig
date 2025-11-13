@@ -70,11 +70,13 @@
     packages = with pkgs; [
       tree
     ];
+    shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFIbMkpEIrQ7htIVvORohzQ7ghFqfJIv9+kFSVHB1qh4 bitwarden"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB423asuCi5MNqqVMf7ZmB7VVB3gwCDm8y+ANksEnesy marcel@MacBook-Air-von-Marcel"
     ];
   };
+  # users.defaultUserShell = pkgs.zsh;
 
   # programs.firefox.enable = true;
 
@@ -85,23 +87,30 @@
     #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     git
-    #   zsh
-    #   oh-my-zsh
+    zsh
+    oh-my-zsh
     #   fzf
   ];
 
-  # programs.zsh = {
-  #   enable = true;
-  #   enableCompletions = true;
-  #   autosuggestions.enable = true;
-  #   syntaxHighlighting.enable = true;
+  programs.zsh = {
+    enable = true;
+    #    enableCompletions = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
 
-  #   shellAliases = {
-  #     ll = "ls -l";
-  #     update = "sudo nixos-rebuild switch";
-  #   };
-  #   history.size = 10000;
-  # };
+    shellAliases = {
+      ll = "ls -l";
+      update = "sudo nixos-rebuild switch";
+    };
+    #    history.size = 10000;
+    ohMyZsh = {
+      # "ohMyZsh" without Home Manager
+      enable = true;
+      plugins = [ "git" "thefuck" ];
+      theme = "ys";
+    };
+
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
